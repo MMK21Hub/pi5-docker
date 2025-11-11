@@ -1,0 +1,15 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable" # set to @:beta to switch to the betas
+    volumes:
+      - /data/home-assistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro # For accessing Bluetooth adapter https://www.home-assistant.io/integrations/bluetooth
+      - /data/home-assistant/media:/media
+    restart: unless-stopped
+    privileged: true
+    cap_add: # For better Bluetooth
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: host
