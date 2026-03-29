@@ -1,0 +1,12 @@
+services:
+  blackbox-exporter:
+    image: quay.io/prometheus/blackbox-exporter:v0.28.0
+    restart: unless-stopped
+    volumes:
+      - ./blackbox.yaml:/config/blackbox.yaml
+    ports:
+      - 9115:9115
+    command: ["--config.file=/config/blackbox.yaml"]
+    labels:
+      - 'wud.tag.include=^\d+\.\d+\.\d+$$'
+      - 'wud.link.template=https://github.com/prometheus/blackbox-exporter/releases/tag/$${major}.$${minor}.$${patch}'

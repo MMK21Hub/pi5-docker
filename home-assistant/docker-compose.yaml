@@ -1,7 +1,7 @@
 services:
   homeassistant:
     container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:stable" # set to @:beta to switch to the betas
+    image: "ghcr.io/home-assistant/home-assistant:2026.1.2"
     volumes:
       - /data/home-assistant/config:/config
       - /etc/localtime:/etc/localtime:ro
@@ -12,4 +12,42 @@ services:
     cap_add: # For better Bluetooth
       - NET_ADMIN
       - NET_RAW
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0 # Zigbee
     network_mode: host
+    labels:
+      - 'wud.tag.include=^\d+\.\d+\.\d+$$'
+      - 'wud.link.template=https://github.com/home-assistant/core/releases/tag/$${major}.$${minor}.$${patch}'
+  matter-server:
+    image: ghcr.io/matter-js/python-matter-server:stable
+    container_name: matter-server
+    restart: unless-stopped
+    # Required for mDNS to work correctly
+    network_mode: host
+    security_opt:
+      # Needed for Bluetooth via dbus
+      - apparmor:unconfined
+    volumes:
+      # Create an .env file that sets the USERDIR environment variable.
+      - /data/matter-server:/data/
+      # Required for Bluetooth via D-Bus
+      - /run/dbus:/run/dbus:ro
+  music-assistant-server:
+    image: ghcr.io/music-assistant/server:latest
+    container_name: music-assistant-server
+    restart: unless-stopped
+    # Network mode must be set to host for MA to work correctly
+    network_mode: host
+    volumes:
+      - /data/music-assistant/data:/data/
+      - /data/music-assistant/media:/media/
+    # privileged caps (and security-opt) needed to mount smb folders within the container
+    # cap_add:
+    #   - SYS_ADMIN
+    #   - DAC_READ_SEARCH
+    # security_opt:
+    #   - apparmor:unconfined
+    environment:
+      # Provide logging level as environment variable.
+      # default=info, possible=(critical, error, warning, info, debug)
+      - LOG_LEVEL=info
