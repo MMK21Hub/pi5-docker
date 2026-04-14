@@ -1,0 +1,26 @@
+services:
+  librespeed:
+    image: lscr.io/linuxserver/librespeed:latest
+    container_name: librespeed
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - FILE__PASSWORD=/run/secrets/results_password
+      - CUSTOM_RESULTS=false
+      - DB_TYPE=sqlite
+      - FILE__IPINFO_APIKEY=/run/secrets/ipinfo_api_key
+    secrets:
+      - results_password
+      - ipinfo_api_key
+    volumes:
+      - /data/librespeed/config:/config
+    ports:
+      - 1234:80
+    restart: unless-stopped
+
+secrets:
+  results_password:
+    file: ./password.secret
+  ipinfo_api_key:
+    file: ./ipinfo_api_key.secret
