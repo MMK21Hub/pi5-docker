@@ -20,7 +20,10 @@ services:
     restart: unless-stopped
 
 secrets:
+  # Password for accessing the (internal) results page
+  # You can generate one randomly.
   results_password:
     file: ./password.secret
+  # Optional ipinfo.io API key
   ipinfo_api_key:
     file: ./ipinfo_api_key.secret
