@@ -1,0 +1,15 @@
+services:
+  whatsupdocker:
+    image: getwud/wud
+    container_name: wud
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 13000:13000
+    environment:
+      - WUD_SERVER_PORT=13000
+      - WUD_TRIGGER_DOCKER_UPDATER_AUTO=false
+      - WUD_TRIGGER_DOCKER_UPDATER_PRUNE=false
+    labels:
+      - 'wud.tag.include=^\d+\.\d+\.\d+$$'
+      - 'wud.link.template=https://github.com/getwud/wud/releases/tag/$${major}.$${minor}.$${patch}'

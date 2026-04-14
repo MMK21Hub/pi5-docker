@@ -33,7 +33,7 @@ services:
       # Required for Bluetooth via D-Bus
       - /run/dbus:/run/dbus:ro
   music-assistant-server:
-    image: ghcr.io/music-assistant/server:latest
+    image: ghcr.io/music-assistant/server:2.7.5
     container_name: music-assistant-server
     restart: unless-stopped
     # Network mode must be set to host for MA to work correctly
@@ -51,3 +51,5 @@ services:
       # Provide logging level as environment variable.
       # default=info, possible=(critical, error, warning, info, debug)
       - LOG_LEVEL=info
+    labels:
+      - 'wud.tag.include=^\d+\.\d+\.\d+$$'
