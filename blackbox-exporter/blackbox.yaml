@@ -1,6 +1,12 @@
 modules:
   http_2xx:
     prober: http
-    # http:
-    #   preferred_ip_protocol: "ip6"
-    #   ip_protocol_fallback: true
+    http:
+      # IPv4 because IPv6 addresses just... aren't reachable half the time
+      preferred_ip_protocol: ip4
+      ip_protocol_fallback: true
+  icmp:
+    prober: icmp
+    icmp:
+      preferred_ip_protocol: ip4
+      ip_protocol_fallback: true
