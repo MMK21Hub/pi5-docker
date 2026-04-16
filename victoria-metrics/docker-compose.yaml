@@ -1,0 +1,17 @@
+services:
+  vmstorage:
+    image: victoriametrics/vmstorage:v1.140.0-cluster
+    volumes:
+      - /data/victoria/storage:/storage
+    command:
+      - "--storageDataPath=/storage"
+    restart: unless-stopped
+  vminsert:
+    image: victoriametrics/vminsert:v1.140.0-cluster
+    depends_on:
+      - "vmstorage"
+    command:
+      - "--storageNode=vmstorage:8400"
+    ports:
+      - 127.0.0.1:8480:8480
+    restart: unless-stopped
