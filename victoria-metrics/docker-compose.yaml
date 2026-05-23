@@ -15,3 +15,11 @@ services:
     ports:
       - 127.0.0.1:8480:8480
     restart: unless-stopped
+  vmselect:
+    image: victoriametrics/vmselect:v1.140.0-cluster
+    depends_on:
+      - "vmstorage"
+    command:
+      - "--storageNode=vmstorage:8401"
+      #- "--vmalert.proxyURL=http://vmalert:8880"
+    restart: unless-stopped
