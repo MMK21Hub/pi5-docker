@@ -1,0 +1,13 @@
+services:
+  slskd:
+    image: slskd/slskd
+    container_name: slskd
+    user: "1000:1000"
+    ports:
+      - "5030:5030"
+      - "50300:50300"
+    environment:
+      - SLSKD_REMOTE_CONFIGURATION=true
+    volumes:
+      - /data/slskid/app:/app
+    restart: unless-stopped
