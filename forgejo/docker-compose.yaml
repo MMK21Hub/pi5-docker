@@ -1,0 +1,21 @@
+# Based on https://forgejo.org/docs/latest/admin/installation/docker/
+services:
+  server:
+    image: codeberg.org/forgejo/forgejo:15
+    container_name: forgejo
+    environment:
+      - USER_UID=1002 # forgejo
+      - USER_GID=1002 # forgejo
+    restart: unless-stopped
+    networks:
+      - forgejo
+    volumes:
+      - /data/forgejo:/data
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - '100.64.2.30:3002:3000'
+      - '100.64.2.30:2222:2222'
+
+networks:
+  forgejo:
+    external: false
