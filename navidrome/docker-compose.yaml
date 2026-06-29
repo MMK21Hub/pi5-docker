@@ -5,11 +5,11 @@ services:
     ports:
       - "4533:4533"
     restart: unless-stopped
-    #environment:
-      # Optional: put your config options customization here. Examples:
+    environment:
       # ND_LOGLEVEL: debug
+      ND_MUSICFOLDER: "/music/mish-music/Artists"
     volumes:
       - "/data/navidrome/data:/data"
-      - "./navidrome.toml:/data/navidrome.toml"
-      - "/data/navidrome/music:/music:ro"
+      - "./navidrome.toml:/navidrome.toml"
+      - "/mnt/music:/music/mish-music:ro"
       - "/data/slskid/app/downloads/:/mnt/slskid-downloads:ro"
