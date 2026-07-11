@@ -17,14 +17,19 @@ services:
 
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}-openvino
     volumes:
       - /data/immich/model-cache:/cache
+      - /dev/bus/usb:/dev/bus/usb # OpenVINO
     env_file:
       - .env
     restart: unless-stopped
     cpu_count: 2
-
+    # OpenVINO stuff below:
+    device_cgroup_rules:
+      - 'c 189:* rmw'
+    devices:
+      - /dev/dri:/dev/dri
 
   redis:
     container_name: immich_redis
