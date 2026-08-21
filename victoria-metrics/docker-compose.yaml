@@ -7,7 +7,7 @@ services:
       - "--storageDataPath=/storage"
     restart: unless-stopped
   vminsert:
-    image: victoriametrics/vminsert:v1.140.0-cluster
+    image: victoriametrics/vminsert:v1.150.0-cluster
     depends_on:
       - "vmstorage"
     command:
