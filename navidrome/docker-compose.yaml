@@ -8,6 +8,7 @@ services:
     environment:
       # ND_LOGLEVEL: debug
       ND_MUSICFOLDER: "/music/mish-music/Artists"
+      ND_ENABLESHARING: "true"
     volumes:
       - "/data/navidrome/data:/data"
       - "./navidrome.toml:/navidrome.toml"
