@@ -1,6 +1,6 @@
 services:
   vmstorage:
-    image: victoriametrics/vmstorage:v1.140.0-cluster
+    image: victoriametrics/vmstorage:v1.150.0-cluster
     volumes:
       - /data/victoria/storage:/storage
     command:
