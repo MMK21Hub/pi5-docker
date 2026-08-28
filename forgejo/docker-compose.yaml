@@ -1,7 +1,7 @@
 # Based on https://forgejo.org/docs/latest/admin/installation/docker/
 services:
   server:
-    image: codeberg.org/forgejo/forgejo:15
+    image: codeberg.org/forgejo/forgejo:16.0.3
     container_name: forgejo
     environment:
       - USER_UID=1002 # forgejo
