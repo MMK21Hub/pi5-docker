@@ -1,7 +1,7 @@
-services:
+<0;50;7Mservices:
   immich-server:
     container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    image: ghcr.io/immich-app/immich-server:v3.1.0
     volumes:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
@@ -17,7 +17,7 @@ services:
 
   immich-machine-learning:
     container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}-openvino
+    image: ghcr.io/immich-app/immich-machine-learning:v3.1.0-openvino
     volumes:
       - /data/immich/model-cache:/cache
       - /dev/bus/usb:/dev/bus/usb # OpenVINO

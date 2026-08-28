@@ -1,6 +1,6 @@
 services:
   slskd:
-    image: slskd/slskd
+    image: slskd/slskd:0.26.0
     container_name: slskd
     user: "1000:1000"
     ports:
