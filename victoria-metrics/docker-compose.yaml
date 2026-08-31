@@ -16,7 +16,7 @@ services:
       - 127.0.0.1:8480:8480
     restart: unless-stopped
   vmselect:
-    image: victoriametrics/vmselect:v1.150.0-cluster
+    image: victoriametrics/vmselect:v1.151.0-cluster
     depends_on:
       - "vmstorage"
     command:
